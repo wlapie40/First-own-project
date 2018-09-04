@@ -1,0 +1,26 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <form class="form-signin" method="post" action="/add/account/type">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.NAME) }}
+        {{ wtf.form_field(form.SURNAME) }}
+        <h1>Address</h1>
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.ZIP_CODE) }}
+        {{ wtf.form_field(form.STREET) }}
+        {{ wtf.form_field(form.STREET_NUMBER) }}
+        <h1>Contact</h1>
+        {{ wtf.form_field(form.PHONE_NUMBER) }}
+        {{ wtf.form_field(form.PHONE_NUMBER2) }}
+        {{ wtf.form_field(form.E_MAIL) }}
+          <button class="btn btn-success btn-xsy" type="submit">Create account</button>
+    </form>
+
+  </div>
+{% endblock %}

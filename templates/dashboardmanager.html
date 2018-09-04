@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Python Programming Tutorials</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+
+<header>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Litchi</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{{url_for('Notes')}}">Notes</a></li>
+            <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{url_for('CreateManagerProfile')}}"><span class="glyphicon glyphicon-music"></span> Create manager profile</a></li>
+            <li><a href="{{url_for('CreateFightManagerRequest')}}"><span class="glyphicon glyphicon-folder-open"></span> Create fight request</a></li>
+            <li><a href="{{url_for('AddFighter2Manager')}}"><span class="glyphicon glyphicon-folder-open"></span> Add fighter to Your team</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Team dashboard <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{url_for('ShowYourTeam')}}"><span class="glyphicon glyphicon-user"></span> Your team fighters</a></li>
+            <li><a href="{{url_for('FireFighters')}}"><span class="glyphicon glyphicon-remove"></span> Fire fighter</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{url_for('searchevents')}}"><span class="glyphicon glyphicon-music"></span> Find event</a></li>
+            <li><a href="{{url_for('FindFighters')}}"><span class="glyphicon glyphicon-screenshot"></span> Find fighters</a></li>
+            <li><a href="{{url_for('FindFederations')}}"><span class="glyphicon glyphicon-home"></span> Find federations</a></li>
+          </ul>
+        </li>
+         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="{{url_for('UpdateAddress')}}"><span class="glyphicon glyphicon-home"></span> Your profile</a></li>
+         <li><a href="{{url_for('UpdateAddress')}}"><span class="glyphicon glyphicon-home"></span> Edit address</a></li>
+            <li><a href="{{url_for('UpdateContact')}}"><span class="glyphicon glyphicon-phone-alt"></span> Edit contact</a></li>
+            <li><a href="{{url_for('UpdateManagerManagerDetails')}}"><span class="glyphicon glyphicon-home"></span> Edit profile</a></li>
+            <li><a href="{{url_for('UploadImages')}}"><span class="glyphicon glyphicon-camera"></span> Add profile photo</a></li>
+
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-earphone"></span> Phone book <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Your fighters</a></li>
+          <li><a href="#">CEOs</a></li>
+          <li><a href="#">Others</a></li>
+        </ul>
+      </li>
+        <li><a href="/settings/"><span class="glyphicon glyphicon-screenshot"></span> Settings</a></li>
+        <li><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+      </ul>
+    </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+</header>
+<body>
+
+
+{% block content %}
+{% endblock %}
+
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

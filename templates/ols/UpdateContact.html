@@ -1,0 +1,73 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+    <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" type="text/javascript"></script>-->
+<!--<script>-->
+<!--jQuery(function($){-->
+   <!--$("#phone_number").mask("(999) 999-999-999");-->
+   <!--$("#phone_number_2").mask("(999) 999-999-999");-->
+<!--});-->
+<!--</script>-->
+
+
+  <div class="container">
+      {% for i in q.CONTACT %}
+    <h3>Update your contactdetails</h3>
+      <div id="panel123" class="panel panel-default">
+          <div class="panel-heading">
+                  <h3 class="panel-title">Account number: <span id="idfighter">
+                   {% if check_account_type=='Fighter' %}
+                   {{i.ID_FIGHTER}}
+                   {% elif check_account_type=='Manager'  %}
+                   {{i.ID_MANAGER}}
+                   {% elif check_account_type=='Federation'  %}
+                   {{i.ID_FEDERATION}}
+                   {% endif %}
+               </span> </h3>
+          </div>
+              <div class="panel-body">
+            <div class="form-group">
+                <label for="phone_number">Phone number:</label>
+                    <input type="text" class="form-control" id="phone_number" value="{{ i.PHONE_NUMBER }}">
+                <label for="phone_number_2">Phone number 2:</label>
+                    <input type="text" class="form-control" id="phone_number_2" value="{{ i.PHONE_NUMBER2 }}">
+                <!--<label for="e_mail">E-mail:</label>-->
+                    <!--<input type="text" class="form-control" id="e_mail" value="{{ i.E_MAIL }}">-->
+
+                <label class="e_mail" for="e_mail">E-mail:</label>
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">@</div>
+                <input type="text" class="form-control" id="e_mail" value={{ i.E_MAIL }}>
+                </div>
+                <br>
+                <button class="btn btn-primary updateButton" member_id="submit">Update</button>
+            {% endfor %}
+</div>
+        </div>
+            </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+
+        var member_id = $(this).attr('submit');
+
+        var phone_number = $('#phone_number').val();
+        var phone_number_2 = $('#phone_number_2').val();
+        var e_mail = $('#e_mail').val();
+
+
+        req = $.ajax({
+            url : '/updateContact',
+            type : 'POST',
+            data : { phone_number : phone_number, phone_number_2 : phone_number_2, e_mail : e_mail}
+        });
+    });
+});</script>
+
+
+{% endblock %}

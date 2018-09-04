@@ -1,0 +1,68 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+
+  <div class="container">
+      {% for i in q.ADDRESS %}
+    <h3>Update your address or personal details</h3>
+      <div id="panel123" class="panel panel-default">
+          <div class="panel-heading">
+               <h3 class="panel-title">Acount number: <span id="idfighter">
+                   {% if check_account_type=='Fighter' %}
+                   {{i.ID_FIGHTER}}
+                   {% elif check_account_type=='Manager'  %}
+                   {{i.ID_MANAGER}}
+                   {% elif check_account_type=='Federation'  %}
+                   {{i.ID_FEDERATION}}
+                   {% endif %}
+               </span> </h3>
+          </div>
+              <div class="panel-body">
+            <div class="form-group">
+                <label for="continent">Continent:</label>
+                    <input type="text" class="form-control" id="continent" value="{{ i.CONTINENT }}">
+                <label for="country">Country:</label>
+                    <input type="text" class="form-control" id="country" value="{{ i.COUNTRY }}">
+                <label for="city">City:</label>
+                    <input type="text" class="form-control" id="city" value="{{ i.CITY }}">
+                <label for="zip_code">Zip-code:</label>
+                    <input type="text" class="form-control" id="zip_code" value="{{ i.ZIP_CODE }}">
+                <label for="street">Street:</label>
+                    <input type="text" class="form-control" id="street" value="{{ i.STREET }}">
+                    <label for="street_number">Street number: </label>
+                <input type="text" class="form-control" id="street_number" value="{{ i.STREET_NUMBER }}">
+                <br>
+                <button class="btn btn-primary updateButton" member_id="submit">Update</button>
+            {% endfor %}
+</div>
+        </div>
+            </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+
+        var member_id = $(this).attr('submit');
+
+        var continent = $('#continent').val();
+        var country = $('#country').val();
+        var city = $('#city').val();
+        var zip_code = $('#zip_code').val();
+        var street = $('#street').val();
+        var street_number = $('#street_number').val();
+
+        req = $.ajax({
+            url : '/updateAddress',
+            type : 'POST',
+            data : { continent : continent, country:country,city:city,zip_code:zip_code,street:street,street_number:street_number}
+        });
+    });
+});</script>
+
+
+{% endblock %}

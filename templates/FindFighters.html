@@ -1,0 +1,97 @@
+{% if current_user in FIGHTERS_LIST %}
+{% extends "dashboardfighter.html" %}
+{% elif current_user in FEDERATIONS_LIST %}
+{% extends "dashboardfederation.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% endif %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='datatable.css') }}">
+<script type=text/javascript src="{{url_for('static', filename='datatable.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#example').DataTable();
+});
+</script>
+
+<div class="container-fluid">
+    <div class="col-md-3">
+        <form class="form-signin" method="POST" action="/FindFighters">
+            <div class="panel panel-success">
+                <div class="panel-heading">Service Part Inquiry</div>
+                <div class="panel-body">
+
+                    {{message}}
+                    {{current_user}}
+                    {{ form.hidden_tag() }}
+                    <h3>Fighter profile</h3>
+                    {{ wtf.form_field(form.WEIGHT_CATEGORY) }}
+                    {{ wtf.form_field(form.FIGHT_STYLE) }}
+                    {{ wtf.form_field(form.NUMBER_OF_FIGHTS,placeholder='non less') }}
+                    {{ wtf.form_field(form.HEALTH_STATUS) }}
+                    {{ wtf.form_field(form.FIGHT_STATUS) }}
+                    {% if current_user in MANAGERS_LIST %}
+                    {{ wtf.form_field(form.NEED_MANAGER) }}
+                    {% elif current_user in FEDERATIONS_LIST %}
+                    {{ wtf.form_field(form.FREE_AGENT) }}
+                    {% endif %}
+                    <h3>Localization</h3>
+                    {{ wtf.form_field(form.CONTINENT) }}
+                    {{ wtf.form_field(form.COUNTRY) }}
+                    {{ wtf.form_field(form.CITY) }}
+
+                    <button type="submit" class="btn btn-success btn-xsy">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-9">
+        <table id="example" class="table table-condensed">
+            <thead>
+            <tr>
+                <th>ID_Fighter</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Nickname</th>
+                <th>Weight category</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Health status</th>
+                <th>Ready to fight date</th>
+                <th>Fight status</th>
+                <th>Fight style</th>
+                <th>Number of wins</th>
+                <th>Number of loss</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>City</th>
+            </thead>
+            <tbody>
+            {% for i in data %}
+            <tr>
+            <td><a href="FighterProfile/{{i[0]}}">{{i[0]}}</a></td>
+            <td>{{i[1]}}</td>
+            <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
+            <td>{{i[4]}}</td>
+            <td>{{i[5]}}</td>
+            <td>{{i[6]}}</td>
+            <td>{{i[7]}}</td>
+            <td>{{i[8]}}</td>
+            <td>{{i[9]}}</td>
+            <td>{{i[10]}}</td>
+            <td>{{i[11]}}</td>
+            <td>{{i[12]}}</td>
+            <td>{{i[13]}}</td>
+            <td>{{i[14]}}</td>
+            <td>{{i[15]}}</td>
+            </tr>
+             {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+{% endblock %}

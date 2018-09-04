@@ -1,0 +1,54 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script>
+	$(function() {
+		$( ".dtpick" ).datepicker();
+	});
+	</script>
+
+<div class="container">
+    <div class="col-md-4">
+    <form class="form-signin" method="post" action="/SearchEventsFederation">
+        {{ form.hidden_tag() }}
+        <h4>Here you can find fight offer for Your fighter.</h4>
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ form.dt(class="dtpick") }}
+        <h5>Event parameter</h5>
+        {{ wtf.form_field(form.WEIGHT_CATEGORY) }}
+         <button class="btn btn-success btn-xsy" type="submit">Search</button>
+    </form>
+    </div>
+
+<br>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Federation</th>
+                <th>Event name</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Event date</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td><a href="FederationProfile/{{i[0]}}">{{i[0]}}</a></td>
+                <td><a href="EventInformation/{{i[6]}}">{{i[1]}}</a></td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+</div>
+{% endblock %}

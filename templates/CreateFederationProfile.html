@@ -1,0 +1,31 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <form class="form-signin" method="post" action="/CreateFederationProfile">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.NAME) }}
+        {{ wtf.form_field(form.SURNAME) }}
+        <h1>Main address</h1>
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.ZIP_CODE) }}
+        {{ wtf.form_field(form.STREET) }}
+        {{ wtf.form_field(form.STREET_NUMBER) }}
+        <h1>Contact</h1>
+        <h6>* not required information</h6>
+        {{ wtf.form_field(form.PHONE_NUMBER) }}
+        {{ wtf.form_field(form.PHONE_NUMBER2) }}
+        <h1>Federation</h1>
+        {{ wtf.form_field(form.FEDERATION_NAME) }}
+        {{ wtf.form_field(form.SPORT_NAME) }}
+        {{ wtf.form_field(form.FEDERATION_CREATED_DATE) }}
+          <button class="btn btn-success btn-xsy" type="submit">Create Your profile</button>
+    </form>
+
+  </div>
+{% endblock %}

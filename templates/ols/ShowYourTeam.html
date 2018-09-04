@@ -1,0 +1,62 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container-fluid">
+ <div class="col-md-3">
+<form class="form-signin" method="POST" action="/ShowYourTeam">
+    <div class="panel panel-success">
+        <div class="panel-heading">Service Part Inquiry</div>
+        <div class="panel-body">
+
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.HEALTH_STATUS) }}
+        {{ wtf.form_field(form.FIGHT_STATUS) }}
+
+
+<button type="submit" class="btn btn-success btn-xsy">Submit</button>
+ </div>
+    </div>
+    </form>
+    </div>
+
+<br>
+
+<div class="container">
+    <h5>Team memeber</h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID Fighter</th>
+                <th>Name</th>
+                <th>Nickname</th>
+                <th>Surname</th>
+                <th>Health status</th>
+                <th>Ready to fight date</th>
+                <th>Event name</th>
+                <th>Category weight</th>
+                <th>Fight date</th>
+                <th></th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td><a href="FighterProfile/{{i[0]}}">{{i[0]}}</a></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+            {% if i[8] is none %}
+            <td></td>
+            {% else %}
+                <td><a href="ShowYourTeam/Event/Information/{{i[9]}}/{{i[0]}}/{{i[10]}}">{{i[8]}}</a></td>
+            {% endif %}
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+</div>
+{% endblock %}

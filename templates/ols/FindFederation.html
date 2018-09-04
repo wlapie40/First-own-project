@@ -1,0 +1,44 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container-fluid">
+ <div class="col-md-3">
+<form class="form-signin" method="POST" action="/FindFederations">
+    <div class="panel panel-success">
+        <div class="panel-heading">Service Part Inquiry</div>
+        <div class="panel-body">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+
+<button type="submit" class="btn btn-success btn-xsy">Submit</button>
+ </div>
+    </div>
+    </form>
+    </div>
+
+    	<div class="col-md-9">
+<table class="table table-condensed">
+  <thead>
+    <tr>
+        <th>Federation name</th>
+        <th>Federation created date</th>
+        <th>Country</th>
+        <th>City</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td><a href="FederationProfile/{{i[0]}}">{{i[0]}}</a></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

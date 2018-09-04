@@ -1,0 +1,99 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+  <div class="container">
+      {% for i in q.FIGHTER_DETAILS %}
+    <h3>Update your details</h3>
+      <div id="panel123" class="panel panel-default">
+          <div class="panel-heading">
+               <h3 class="panel-title">Your id: <span id="idfighter">{{i.ID_FIGHTER}}</span> </h3>
+          </div>
+              <div class="panel-body">
+            <div class="form-group">
+
+            <label for="sport">Sport dyscipline:</label>
+              <select class="form-control" id="sport">
+                    <option>MMA</option>
+                    <option>K1</option>
+                    <option>Boxing</option>
+                    <option>BJJ</option>
+                    <option>Muay Thai</option>
+              </select>
+
+            <label for="weight_category">Weight category: <small>(current choice {{i.WEIGHT_CATEGORY}})</small></label>
+              <select class="form-control" id="weight_category">
+                    <option>Heavyweight</option>
+                    <option>Light heavyweight</option>
+                    <option>Middleweight</option>
+                    <option>Welterweight</option>
+                    <option>Featherweight</option>
+                    <option>Bantamweight</option>
+                    <option>Flyweight</option>
+                    <option>Strawweight</option>
+              </select>
+
+            <label for="weight">Weight:</label>
+                    <input type="text" class="form-control" id="weight" value="{{ i.WEIGHT }}">
+
+             <label for="height">Height:</label>
+                    <input type="text" class="form-control" id="height" value="{{ i.HEIGHT }}">
+
+            <label for="fight_style">Fight style (current choice {{i.FIGHT_STYLE}}):</label>
+          <select class="form-control" id="fight_style">
+                <option>Striker</option>
+                <option>Grappler</option>
+                <option>Wrestler</option>
+          </select>
+
+               <label for="number_of_wins">Number of wins:</label>
+                    <input type="text" class="form-control" id="number_of_wins" value="{{ i.NUMBER_OF_WINS }}">
+
+             <label for="number_of_loss">Number of loss:</label>
+                    <input type="text" class="form-control" id="number_of_loss" value="{{ i.NUMBER_OF_LOSS }}">
+
+                <br>
+                <button class="btn btn-primary updateButton" member_id="submit">Update</button>
+            {% endfor %}
+</div>
+        </div>
+            </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+        var member_id = $(this).attr('submit');
+
+        var sport = $('#sport').val();
+        var weight_category = $('#weight_category').val();
+        var weight = $('#weight').val();
+        var height = $('#height').val();
+        var fight_style = $('#fight_style').val();
+        var number_of_wins = $('#number_of_wins').val();
+        var number_of_loss = $('#number_of_loss').val();
+
+
+
+        req = $.ajax({
+            url : '/updateFighterFighterDetails',
+            type : 'POST',
+            data :
+                {
+                sport : sport,
+                weight_category : weight_category,
+                weight : weight,
+                height : height,
+                fight_style : fight_style,
+                number_of_wins : number_of_wins,
+                number_of_loss : number_of_loss
+                }
+        });
+    });
+});</script>
+
+
+{% endblock %}

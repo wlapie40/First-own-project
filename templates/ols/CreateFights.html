@@ -1,0 +1,175 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<script type="text/javascript">
+$(function() {
+    var vehicles = [{{data2|safe}}];
+    // set up initial list of makes
+    var makes = get_distinct(vehicles, 'WeightCategory');
+    $.each(makes, function(index, value) {
+       $('select#WeightCategory').append('<option value="' + value + '">' + value + '</option>')
+    });
+
+    $('select').change(function() {
+        // don't execute if this is the last select element
+        if ($(this).is(':last')) return;
+
+        // clear all of the following select boxes, leaving a blank option
+        $(this).nextAll().html('<option></option>');
+
+        // get list of vehicles filtered by all the previous parameters
+        var filtered_vehicles = filter_vehicles();
+
+        // get the next select element
+        var next = $(this).next();
+
+        // get the distinct values from our list of filtered vehicles
+        var values = get_distinct(filtered_vehicles, next.attr('id'));
+
+        // append our options
+        $.each(values, function(index, value) {
+            next.append('<option value="' + value + '">' + value + '</option>')
+        });
+    });
+
+    function filter_vehicles() {
+        return $.grep(vehicles, function(n, i) {
+            if ($('#Fighter').val() != '')
+                return n.WeightCategory == $('#WeightCategory').val() && n.model == $('#Fighter').val();
+            else
+                return n.WeightCategory == $('#WeightCategory').val();
+        });
+    }
+
+    // returns distinct properties from an array of objects
+    function get_distinct(array, property) {
+       var arr = [];
+
+       $.each(array, function(index, value) {
+           if ( $.inArray(value[property], arr) == -1 ) {
+               arr.push(value[property]);
+           }
+       });
+
+       return arr;
+    }
+});
+
+</script>
+
+<script type="text/javascript">
+$(function() {
+    var vehicles = [{{data2|safe}}];
+    // set up initial list of makes
+    var makes = get_distinct(vehicles, 'WeightCategory');
+    $.each(makes, function(index, value) {
+       $('select#WeightCategory').append('<option value="' + value + '">' + value + '</option>')
+    });
+
+    $('select').change(function() {
+        // don't execute if this is the last select element
+        if ($(this).is(':last')) return;
+
+        // clear all of the following select boxes, leaving a blank option
+        $(this).nextAll().html('<option></option>');
+
+        // get list of vehicles filtered by all the previous parameters
+        var filtered_vehicles = filter_vehicles();
+
+        // get the next select element
+        var next = $(this).next();
+
+        // get the distinct values from our list of filtered vehicles
+        var values = get_distinct(filtered_vehicles, next.attr('id'));
+
+        // append our options
+        $.each(values, function(index, value) {
+            next.append('<option value="' + value + '">' + value + '</option>')
+        });
+    });
+
+    function filter_vehicles() {
+        return $.grep(vehicles, function(n, i) {
+            if ($('#Fighter2').val() != '')
+                return n.WeightCategory == $('#WeightCategory').val() && n.model == $('#Fighter2').val();
+            else
+                return n.WeightCategory == $('#WeightCategory').val();
+        });
+    }
+
+    // returns distinct properties from an array of objects
+    function get_distinct(array, property) {
+       var arr = [];
+
+       $.each(array, function(index, value) {
+           if ( $.inArray(value[property], arr) == -1 ) {
+               arr.push(value[property]);
+           }
+       });
+
+       return arr;
+    }
+});
+</script>
+
+<form class="form-signin" method="post" action="/CreateFights">
+     <div class="container">
+    {{message}}
+     </div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-6">
+                <div class="col-md-6">
+
+                    <label for="eventlist">Actual federation's event list:</label>
+
+                    <select class="form-control" autofocus name="eventlist" id="eventlist">
+                        {% for i in data %}
+                        <option>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+<div class="row">
+                <div class="col-md-6">
+                    <label for="time">Time round:</label>
+                    <input type="text" class="form-control" autofocus name="time" id="time">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rounds">Number of round:</label>
+                        <select class="form-control" autofocus name="rounds"  id="rounds">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+</div>
+                <h6>If You don't have any fighter please write 'TBA' ('ID_FIGHTER 1' or 'ID_FIGHTER 2' or into both fields), in
+                this case Your request will be visible for managers and fighters.Otherwise the bracket/brackets can be empty
+                and not visible for anyone as a potential fight offer. </h6>
+                <div class="col-md-6">
+                    <label for="WeightCategory">Weight category</label>
+                    <select class="form-control" autofocus name="WeightCategory" id="WeightCategory">
+                        <option></option>
+                    </select>
+                    <select class="form-control" autofocus name="Fighter" id="Fighter">
+                        <option></option>
+                    </select>
+
+
+                    <select class="form-control" autofocus name="Fighter2" id="Fighter2">
+                        <option></option>
+                    </select>
+                    <button class="btn btn-success btn-xsy" type="submit">Add fight</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

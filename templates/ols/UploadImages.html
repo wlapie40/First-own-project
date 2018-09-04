@@ -1,0 +1,15 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <h1>Image input</h1>
+    <form method="POST" action="/uploadImages" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="inputFile">File input</label>
+            <input type="file" name="inputFile">
+        </div>
+        <button type="submit" class="btn btn-default">Upload</button>
+    </form>
+</div>
+{% endblock %}

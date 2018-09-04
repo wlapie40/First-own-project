@@ -1,0 +1,69 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <div class="col-md-8">
+    <h5>Team memeber</h5>
+    <table class="table table-hover">
+        <thead>
+                <th>ID Fighter</th>
+                <th>Name</th>
+                <th>Nickname</th>
+                <th>Surname</th>
+                <th>Health status</th>
+                <th>Ready to fight date</th>
+                <th>Event name</th>
+                <th>Category weight</th>
+                <th>Fight date</th>
+                <th>Fire</th>
+                <th></th>
+        </thead>
+            <tbody>
+            {% for i in data %}
+            <tr>
+                <td><input type="text" id="id_fighter{{i.ID_FIGHTER}}" value={{i.ID_FIGHTER}}></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+            {% if i[8] is none %}
+            <td></td>
+            {% else %}
+                <td><a href="ShowYourTeam/Event/Information/{{i[9]}}/{{i[0]}}/{{i[10]}}">{{i[8]}}</a></td>
+            {% endif%}
+            <td><center><button class="btn btn-primary updateButton" member_id="{{i.ID_FIGHTER}}">Update</button></center></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+
+        var member_id = $(this).attr('member_id');
+
+        var id_fighter = $('#id_fighter'+member_id).val();
+
+
+
+        req = $.ajax({
+            url : '/fireFighter',
+            type : 'POST',
+            data : {id_fighter : id_fighter}
+        });
+        req.done(function(){
+        window.location.reload();
+        });
+    });
+});
+</script>
+
+{% endblock %}

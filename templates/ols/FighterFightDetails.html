@@ -1,0 +1,93 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+
+  <div class="container">
+      {% for i in q.FIGHTER_DETAILS %}
+    <h3>Update your fight details</h3>
+      <div id="panel123" class="panel panel-default">
+          <div class="panel-heading">
+               <h3 class="panel-title">Your id: <span id="idfighter">{{i.ID_FIGHTER}}</span> </h3>
+          </div>
+              <div class="panel-body">
+            <div class="form-group">
+
+            <label for="health_status">Health status:</label>
+              <select class="form-control" id="health_status">
+                <option>Healthy</option>
+                <option>Light injury </option>
+                <option>Serious injury</option>
+              </select>
+
+                <label for="health_description">Health description:</label>
+                    <input type="text" class="form-control" id="health_description" value="{{ i.HEALTH_DESCRIPTION }}">
+
+                   <label for="free_agent">Contract status:</label>
+              <select class="form-control" id="free_agent">
+                <option value="No">I have valid in law contract with organization</option>
+                <option value="Yes">I don't have valid in law contract with organization</option>
+              </select>
+
+                        <label for="manager_need">Manager:</label>
+              <select class="form-control" id="manager_need">
+                <option value="No">I don't need manager</option>
+                <option value="Yes">I'm looking for manager</option>
+              </select>
+
+                            <label for="fight_status">Fight status:</label>
+              <select class="form-control" id="fight_status">
+                <option value="Looking for fight">I'm looking for fight</option>
+                <option value="No fight">I don't need fight</option>
+              </select>
+
+                <label for="ready_to_fight_date">Ready to fight date (dd/mm/rrrr)</label>
+                    <input type="text" class="form-control" id="ready_to_fight_date" value="{{ i.READY_TO_FIGHT_DATE }}">
+                <br>
+                <button class="btn btn-primary updateButton" member_id="submit">Update</button>
+            {% endfor %}
+</div>
+        </div>
+            </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+
+        var member_id = $(this).attr('submit');
+
+        var health_status = $('#health_status').val();
+        var health_description = $('#health_description').val();
+        var free_agent = $('#free_agent').val();
+        var manager_need = $('#manager_need').val();
+        var fight_status = $('#fight_status').val();
+        var ready_to_fight_date = $('#ready_to_fight_date').val();
+
+
+
+        req = $.ajax({
+            url : '/updateFighterFightDetails',
+            type : 'POST',
+            data :
+                {
+                health_status : health_status,
+                health_description : health_description,
+                free_agent : free_agent,
+                manager_need : manager_need,
+                fight_status : fight_status,
+                ready_to_fight_date : ready_to_fight_date
+                }
+        });
+    });
+});</script>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+   <script>
+    $(function() {
+        $( ".dtpick" ).datepicker();
+    });
+    </script>
+<div class="container">
+    <form class="form-signin" method="post" action="/CreateEvents">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.EVENT_NAME) }}
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.ZIP_CODE) }}
+        {{ wtf.form_field(form.STREET) }}
+        {{ wtf.form_field(form.STREET_NUMBER) }}
+        {{ wtf.form_field(form.TIME) }}
+        {{ wtf.form_field(form.EVENT_DATE) }}
+        {{ wtf.form_field(form.NEED_FIGHTER_STATUS) }}
+        <button class="btn btn-success btn-xsy" type="submit">Add event</button>
+    </form>
+    <h5>If You want add fights to event which You've just created, please click here</h5>
+    {% endblock %}
+</div>

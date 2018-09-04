@@ -1,0 +1,55 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-4">
+    <form class="form-signin" method="post" action="/ShowFederationEven">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.EVENT_STATUS) }}
+         <button class="btn btn-success btn-xsy" type="submit">Search</button>
+    </form>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+                      <tr>
+                <th>Event name</th>
+                <th>City</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>Zip-code</th>
+                <th>Number of fights</th>
+                <th>Street</th>
+                <th>Street number</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Need fighter status</th>
+                <th>Event status</th>
+            </tr>
+        </thead>
+                 <tbody>
+            {% for i in data %}
+                <td><a href="EventProfile/{{i[0]}}">{{i[0]}}</a></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+                <td>{{i[8]}}</td>
+                <td>{{i[9]}}</td>
+                <td>{{i[10]}}</td>
+                <td>{{i[11]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

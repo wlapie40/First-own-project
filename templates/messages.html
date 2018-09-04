@@ -1,0 +1,101 @@
+{% extends "dashboardfighter.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID Message</th>
+                <th>Subject</th>
+                <th>Job offer</th>
+                {% for i in data %}
+                {% if i[4]|int == 0 %}
+                <th>Accept</th>
+                <th>Decline</th>
+                {% elif i[4]|int == 1%}
+                <th>Decision</th>
+                {% endif %}
+                {%endfor%}
+            </tr>
+            </thead>
+            {% for i in data %}
+            {% if i[4]|int !=4 and i[5]|int !=0 %}
+            <tbody>
+            <tr>
+                <td><input type="text" class="form-control" id="id_message{{i[3]}}" value="{{i[3]}}"></td>
+                <td><input type="text" class="form-control" id="subject{{i[3]}}" value="{{i[0]}}"></td>
+                <td><input type="text" class="form-control" id="text{{i[3]}}" value="{{i[1]}}"></td>
+                {% if i[4]|int == 0 %}
+                <td><center><button class="btn btn-info acceptButton" message_accept="{{i[3]}}">Confirm</button></center></td>
+                <td><center><button class="btn btn-danger refuseButton" message_refuse="{{i[3]}}">Refuse</button></center></td>
+                <td><center>Waiting for decision</center></td>
+                {% elif i[4]|int == 1%}
+                <td><center><button class="btn btn-danger deleteButton" message_accept="{{i[3]}}">Delete from view</button></center></td>
+                 <td>Confrimed by You</td>
+                {% endif %}
+            </tr>
+            </tbody>
+            {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script>$(document).ready(function() {
+        $('.refuseButton').on('click', function() {
+        var message_refuse = $(this).attr('message_refuse');
+
+        var id_message = $('#id_message'+message_refuse).val();
+        req = $.ajax({
+            url : '/messages_federation_json_refuse',
+            type : 'POST',
+            data :
+                {id_message : id_message}
+        });
+                req.done(function(){
+            window.location.reload();});
+    });
+});
+</script>
+
+
+<script>$(document).ready(function() {
+        $('.acceptButton').on('click', function() {
+        var message_accept = $(this).attr('message_accept');
+
+        var id_message = $('#id_message'+message_accept).val();
+        req = $.ajax({
+            url : '/messages_federation_json_accept',
+            type : 'POST',
+            data :
+                {id_message : id_message}
+        });
+                req.done(function(){
+            window.location.reload();});
+    });
+});
+</script>
+
+
+<script>$(document).ready(function() {
+        $('.deleteButton').on('click', function() {
+        var message_accept = $(this).attr('message_accept');
+
+        var id_message = $('#id_message'+message_accept).val();
+        req = $.ajax({
+            url : '/messages_federation_json_delete',
+            type : 'POST',
+            data :
+                {id_message : id_message}
+        });
+                req.done(function(){
+            window.location.reload();});
+    });
+});
+</script>
+{% endblock %}

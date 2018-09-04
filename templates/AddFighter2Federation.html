@@ -1,0 +1,118 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='datatable.css') }}">
+<script type=text/javascript src="{{url_for('static', filename='datatable.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#FederationFighters').DataTable();
+});
+</script>
+
+
+
+<div class="container">
+    <form class="form-signin" method="post" action="/AddFighter2Federation">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.ID_FIGHTER) }}
+        {{ wtf.form_field(form.TEXT) }}
+
+        <button class="btn btn-success btn-xsy" type="submit">Submit</button>
+    </form>
+
+</div>
+
+<div class="container">
+    <h5>Federation fighters</h5>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID Fighter</th>
+            <th>Name</th>
+            <th>Nickname</th>
+            <th>Surname</th>
+            <th>Health status</th>
+            <th>Category weight</th>
+            <th>Ready to fight date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+        <td><a href="FighterProfile/{{i[0]}}">{{i[0]}}</a></td>
+        <td>{{i[1]}}</td>
+        <td>{{i[2]}}</td>
+        <td>{{i[3]}}</td>
+        <td>{{i[4]}}</td>
+        <td>{{i[5]}}</td>
+        <td>{{i[6]}}</td>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% if message_fail|length<1 %}
+{% else %}
+<div class="alert alert-warning" role="alert">{{message_fail}}</div>
+{% endif %}
+{% if message_success|length<1 %}
+{% else %}
+<div class="alert alert-success" role="alert">{{message_success}}</div>
+{% endif %}
+</div>
+
+<div class="container">
+    <h5>Job offers</h5>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID Message</th>
+            <th>Job offer</th>
+            <th>ID_FIGHTER</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        {% for i in job_requests %}
+        <tbody>
+        <tr>
+            <td><input type="text" class="form-control" id="id_message{{i[4]}}" value="{{i[4]}}"></td>
+        <td>{{i[0]}}</td>
+        <td><a href="FighterProfile/{{i[1]}}">{{i[1]}}</a></td>
+        <td>{{i[2]}}</td>
+
+        {% if i[3]|int==0 %}
+        <td><button class="btn btn-danger deleteButton" message_delete="{{i[4]}}">Delete</button></td>
+        {% elif i[3]|int==1 %}
+             <td><center><button class="btn btn-danger deleteviewButton" message_accept="{{i[4]}}">Delete from view</button></center></td>
+        {% elif i[4]=='REJECTED' %}
+            <td><center><button class="btn btn-info deleteviewButton" message_accept="{{i[4]}}">New bid</button></center></td>
+        {% elif i[3]|int is none %}
+        {% endif %}
+        </tr>
+        </tbody>
+         {% endfor %}
+    </table>
+</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+<script>$(document).ready(function() {
+        $('.deleteButton').on('click', function() {
+        var message_delete = $(this).attr('message_delete');
+
+        var id_message = $('#id_message'+message_delete).val();
+        req = $.ajax({
+            url : '/messages_federation_json_delete',
+            type : 'POST',
+            data :
+                {id_message : id_message}
+        });
+                req.done(function(){
+            window.location.reload();});
+    });
+});
+</script>
+{% endblock %}

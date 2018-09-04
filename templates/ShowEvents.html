@@ -1,0 +1,51 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <form class="form-inline">
+        <div class="form-group">
+    <form method="post" action="/ShowFederationEvents">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.EVENT_STATUS) }}
+<br>
+         <button class="btn btn-success btn-xsy" type="submit">Search</button>
+    </form>
+        </div>
+    </form>
+</div>
+<br>
+ShowEvents.html
+<div class="container">
+    <h5>Event schedule</h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Event name</th>
+                <th>City</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>Zip-code</th>
+                <th>Number of fights</th>
+                <th>Street</th>
+                <th>Street number</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Need fighter status</th>
+                <th>Event status</th>
+                <th></th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                {% for elem in i %}
+                <td>{{elem}}</td>
+            {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

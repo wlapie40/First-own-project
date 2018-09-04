@@ -1,0 +1,41 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <form class="form-signin" method="post" action="/CreateFighterProfile">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.NAME) }}
+        {{ wtf.form_field(form.NICKNAME) }}
+        {{ wtf.form_field(form.SURNAME) }}
+        <h1>Address</h1>
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        {{ wtf.form_field(form.ZIP_CODE) }}
+        {{ wtf.form_field(form.STREET) }}
+        {{ wtf.form_field(form.STREET_NUMBER) }}
+        <h1>Contact</h1>
+        <h6>* not required information</h6>
+        {{ wtf.form_field(form.PHONE_NUMBER) }}
+        {{ wtf.form_field(form.PHONE_NUMBER2) }}
+        <h1>Fighter details</h1>
+        <h6>* not required information</h6>
+        {{ wtf.form_field(form.SPORT) }}
+        {{ wtf.form_field(form.WEIGHT_CATEGORY) }}
+        {{ wtf.form_field(form.WEIGHT) }}
+        {{ wtf.form_field(form.HEIGHT) }}
+        {{ wtf.form_field(form.FIGHT_STATUS) }}
+        {{ wtf.form_field(form.FIGHT_STYLE) }}
+        {{ wtf.form_field(form.NUMBER_OF_WINS) }}
+        {{ wtf.form_field(form.NUMBER_OF_LOSS) }}
+        {{ wtf.form_field(form.FREE_AGENT) }}
+        <h1>Fighter sherdog.com profile</h1>
+        {{ wtf.form_field(form.URL) }}
+          <button class="btn btn-success btn-xsy" type="submit">Create Your profile</button>
+    </form>
+
+  </div>
+{% endblock %}

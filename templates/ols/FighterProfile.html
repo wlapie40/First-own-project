@@ -1,0 +1,40 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+ <img src="data:;base64,{{ image }}"/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id_fighter</th>
+                <th>Name</th>
+                <th>Nickname</th>
+                <th>Surname</th>
+                <th>Fight style</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Number of wins</th>
+                <th>Number of loss</th>
+                <th>Sherdog.com</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+                <td>{{i[8]}}</td>
+            <td>{{i[9]}}</td>
+
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <form class="form-signin" method="post" action="/ManagerSearchFighter">
+        {{message}}
+        {{ form.hidden_tag() }}
+         <h5>Localization</h5>
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+        <h5>Fight characteristics</h5>
+        {{ wtf.form_field(form.WEIGHT_CATEGORY) }}
+        {{ wtf.form_field(form.FIGHT_STYLE) }}
+        {{ wtf.form_field(form.NUMBER_OF_FIGHTS) }}
+        {{ wtf.form_field(form.AGE) }}
+
+          <button class="btn btn-success btn-xsy" type="submit">Search</button>
+    </form>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+    <div class="col-md-4">
+    <form class="form-signin" method="post" action="/CreateFightManagerRequest">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.ID_FIGHTER) }}
+        {{ wtf.form_field(form.CONTINENT) }}
+        {{ wtf.form_field(form.COUNTRY) }}
+        {{ wtf.form_field(form.CITY) }}
+
+         <button class="btn btn-success btn-xsy" type="submit">Create request</button>
+    </form>
+    </div>
+<div class="col-md-8">
+       <h5>Your fighters</h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID Fighter</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Nickname</th>
+                <th>Weight category</th>
+                <th>Fight style</th>
+                <th>Health status</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data1 %}
+                {% for elem in i %}
+                <td>{{elem}}</td>
+            {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+
+  </div>
+<br>
+
+  <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="panel panel-default">
+    <table class="table table-striped">
+                  <thead>
+                    <th><center><h4>ID fighter</h4></center></th>
+                    <th><center><h4>Name</h4></center></th>
+                    <th><center><h4>Nickname</h4></center></th>
+                    <th><center><h4>Surname</h4></center></th>
+                    <th><center><h4>Wight category</h4></center></th>
+                    <th><center><h4>Fight style</h4></center></th>
+                    <th><center><h4>Country</h4></center></th>
+                    <th><center><h4>Continent</h4></center></th>
+                    <th><center><h4>City</h4></center></th>
+                    <th><center><h4><span class="label label-danger">Delete request</span></h4></center></th>
+                  </thead>
+                    <tbody>
+            {% for i in data %}
+                  <tr>
+                <td><input type="text" class="form-control" id="id_fighter{{ i.ID_FIGHTER }}" maxlength="35" value="{{ i.ID_FIGHTER }}"></td>
+                <td><input type="text" class="form-control" id="name{{ i.ID_FIGHTER }}" maxlength="35" value="{{ i.NAME }}"></td>
+                <td><input type="text" class="form-control" id="nickname{{ i.ID_FIGHTER }}" maxlength="45" value="{{ i.NICKNAME }}"></td>
+                <td><input type="text" class="form-control" id="surname{{ i.ID_FIGHTER }}" maxlength="35" value="{{ i.SURNAME }}"></td>
+                <td><input type="text" class="form-control" id="weight_category{{ i.ID_FIGHTER }}" maxlength="45" value="{{ i.WEIGHT_CATEGORY }}"></td>
+                <td><input type="text" class="form-control" id="fight_style{{ i.ID_FIGHTER }}" maxlength="35" value="{{ i.FIGHT_STYLE }}"></td>
+                <td><input type="text" class="form-control" id="country{{ i.ID_FIGHTER }}" maxlength="45" value="{{ i.COUNTRY }}"></td>
+                <td><input type="text" class="form-control" id="continent{{ i.ID_FIGHTER }}" maxlength="35" value="{{ i.CONTINENT }}"></td>
+                <td><input type="text" class="form-control" id="city{{ i.ID_FIGHTER }}" maxlength="45" value="{{ i.CITY }}"></td>
+                      <td><center><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger updateButton"  data-title="Delete" data-toggle="modal" member_id="{{i.ID_FIGHTER}}" ><span class="glyphicon glyphicon-trash"></span></button></p></center></td>
+                  </tr>
+                  {% endfor %}
+</tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+      </div>
+
+    <script>$(document).ready(function() {
+
+        $('.updateButton').on('click', function() {
+        var member_id = $(this).attr('member_id');
+        var city = $('#city'+member_id).val();
+        var continent = $('#continent'+member_id).val();
+        var country = $('#country'+member_id).val();
+        var id_fighter = $('#id_fighter'+member_id).val();
+
+        req = $.ajax({
+            url : '/deleteRequest',
+            type : 'POST',
+            data :
+                {city : city,continent : continent,country : country,id_fighter : id_fighter}
+        });
+        req.done(function(){
+            $('#city'+member_id).fadeOut(500).fadeIn(500);
+            $('#continent'+member_id).fadeOut(500).fadeIn(500);
+            $('#country'+member_id).fadeOut(500).fadeIn(500);
+            $('#id_fighter'+member_id).fadeOut(500).fadeIn(500);
+            $('#name'+member_id).fadeOut(500).fadeIn(500);
+            $('#nickname'+member_id).fadeOut(500).fadeIn(500);
+            $('#surname'+member_id).fadeOut(500).fadeIn(500);
+            $('#weight_category'+member_id).fadeOut(500).fadeIn(500);
+            $('#fight_style'+member_id).fadeOut(500).fadeIn(500);
+            <!--test-->
+            window.location.reload();
+});
+
+    });
+});
+</script>
+
+
+{% endblock %}

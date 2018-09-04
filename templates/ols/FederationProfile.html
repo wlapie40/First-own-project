@@ -1,0 +1,87 @@
+{% extends "Dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+{% for i in data %}
+<h4><p class="text-center">{{i[3]}}</p></h4>
+{% endfor %}
+<div class="container">
+ <img src="data:;base64,{{ image }}"/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID_Federation</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Federation name</th>
+                <th>Federation created date</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>City</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Street</th>
+                <th>Street number</th>
+                <th>City</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td>{{i[8]}}</td>
+                <td>{{i[9]}}</td>
+                <td>{{i[10]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Phone number</th>
+                <th>Phone number 2</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td>{{i[11]}}</td>
+                <td>{{i[12]}}</td>
+                <td>{{i[13]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+<center>
+    <div class="test" id="EventName" value="{{event_data[0]}}">{{event_data[0]}}</div><br>
+    {{event_data[1]}}<br>
+    {{event_data[2]}}<br>
+    {{event_data[3]}}<br>
+    {{event_data[4]}}
+</center>
+    {% if UserAccountType|string == 'Federation' %}
+    <p><a class="btn btn-default editEvent" member_id="submit">Edit event</a>
+        <a class="btn btn-danger" href="#" role="button">Delete event</a></p>
+    {% endif %}
+    <div class="row">
+        {% for i in data %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="/FighterProfile/{{i[4]}}">{{i[0]}}</a> {% if i[1]|length>0 %}(<a
+                        href="/FighterProfile/{{i[4]}}">{{i[1]}}</a>){% else %}{% endif %} <a
+                        href="/FighterProfile/{{i[4]}}">{{i[2]}}</a> <br>Record ({{i[6]}}-{{i[7]}}-{{i[8]}}-{{i[9]}})
+                    (W-L-D-NC)
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script>$(document).ready(function() {
+
+        $('.editEvent').on('click', function() {
+
+        var member_id = $(this).attr('submit');
+
+        var EventName = $('#EventName').val();
+
+        req = $.ajax({
+            url : '/JSON/Edit/Event/Information',
+            type : 'POST',
+            data : { EventName : EventName}
+        });
+    });
+});
+
+
+
+
+</script>
+
+
+{% endblock %}

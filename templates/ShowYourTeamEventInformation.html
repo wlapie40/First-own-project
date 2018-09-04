@@ -1,0 +1,49 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+
+<div class="container">
+ <img src="data:;base64,{{ image }}"/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Opponent</th>
+                <th>Event name</th>
+                <th>City</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>Zip code</th>
+                <th>Street</th>
+                <th>Street number</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Need fighter status</th>
+                <th>Event stats</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data2 %}
+            {% if i[0]=='TBA' %}
+            <td>To be announced</td>
+            {% else %}
+            <td><a href='/FighterProfile/{{i[3]}}'>{{i[0]}} {% if i[1] != none %}'{{i[1]}}' {% endif %} {{i[2]}}</a></td>
+            {% endif %}
+            {% endfor %}
+            {% for i in data %}
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+                <td>{{i[8]}}</td>
+                <td>{{i[9]}}</td>
+                <td>{{i[10]}}</td>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

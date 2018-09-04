@@ -1,0 +1,10 @@
+Dodawanie kont dla:
+    *manager
+Tworzenie profilu dla:
+    *managera
+
+
+    https://stackoverflow.com/questions/30899484/python-flask-calling-functions-using-buttons
+    https://www.twilio.com/docs/tutorials/click-to-call-python-flask
+
+    r=db.engine.execute('select a.NAME,a.SURNAME,b.WEIGHT_CATEGORY from FIGHTER a INNER JOIN FIGHTER_DETAILS b ON a.ID_FIGHTER=b.ID_FIGHTER ')

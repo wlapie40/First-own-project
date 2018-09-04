@@ -1,0 +1,27 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<center>
+{{event_data[0]}}<br>
+{{event_data[1]}}<br>
+{{event_data[2]}}<br>
+{{event_data[3]}}<br>
+{{event_data[4]}}
+</center>
+
+<div class="container">
+    <div class="row">
+        {% for i in data %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="/FighterProfile/{{i[4]}}">{{i[0]}}</a> {% if i[1]|length>0 %}(<a href="/FighterProfile/{{i[4]}}">{{i[1]}}</a>){% else %}{% endif %} <a href="/FighterProfile/{{i[4]}}">{{i[2]}}</a>  <br>Record ({{i[6]}}-{{i[7]}}-{{i[8]}}-{{i[9]}}) (W-L-D-NC)
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

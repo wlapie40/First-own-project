@@ -1,0 +1,44 @@
+{% extends "dashboardfederation.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <form class="form-signin" method="post" action="/AddFighter2Federation">
+        {{message}}
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.ID_FIGHTER) }}
+
+          <button class="btn btn-success btn-xsy" type="submit">Submit</button>
+    </form>
+
+  </div>
+<div class="container">
+    <h5>Federation fighters</h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID Fighter</th>
+                <th>Name</th>
+                <th>Nickname</th>
+                <th>Surname</th>
+                <th>Health status</th>
+                <th>Ready to fight date</th>
+                <th>Event name</th>
+                <th>Category weight</th>
+                <th>Fight date</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for i in data %}
+                <td><a href="FighterProfile/{{i[0]}}">{{i[0]}}</a></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>{{i[5]}}</td>
+                <td>{{i[6]}}</td>
+                <td>{{i[7]}}</td>
+            </tbody>
+    </table>
+</div>
+{% endblock %}
